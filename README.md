@@ -1,7 +1,6 @@
-#coding-style-repo
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
-"""
-README
+<h3 align="center">coding-style-repo</h3>
 
 This script is display the content of coding-style-report.log file in a more readable way.
 The app is built using Python and can be run on any machine with Python installed. Seen other dependencies below.
@@ -24,5 +23,4 @@ Author:
 
 License:
 
-- This project is licensed under the MIT License - see the LICENSE file for details.
-    """
+- This project is licensed under the MIT License - see the LICENSE file for details
