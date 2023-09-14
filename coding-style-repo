@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+import subprocess
+import os
+import sys
+from termcolor import colored
+
+OPTIONS = [
+    ("--ignore", "Ignore the all file in .gitignore"),
+    ("--clean", "Clean the coding-style-reports.log file"),
+    ("--help", "Display this help")
+]
+
+
+def read_file(path: str):
+    f = open(path, "r")
+    lines = f.readlines()
+    f.close()
+    return lines
+
+
+def compute_error(lines: list[str]) -> tuple[list, list, list]:
+    majors: list[tuple[str, str, str]] = []
+    minors: list[tuple[str, str, str]] = []
+    infos: list[tuple[str, str, str]] = []
+    for line in lines:
+        parsed: list[str] = line.split(":")
+        for i in range(len(parsed)):
+            parsed[i] = parsed[i].strip()
+        file, line, level, rule = parsed
+        file_name = file.split("/")[-1].strip()
+        match level:
+            case "MAJOR":
+                majors.append((file_name, line, rule))
+            case "MINOR":
+                minors.append((file_name, line, rule))
+            case "INFO":
+                infos.append((file_name, line, rule))
+    return majors, minors, infos
+
+
+def print_nb_cs_errors(errors: tuple[list, list, list]):
+    majors, minors, infos = errors
+    total: int = len(majors) + len(minors) + len(infos)
+    print(
+        colored("Coding-style errors found !",
+                'red', attrs=["bold", "underline", "reverse"]))
+    print(
+        colored('Fix them before pushing your code !',
+                'red', attrs=["bold", "underline", "reverse"]))
+    print()
+    print(colored(f"Total: {total}", 'magenta'), end=", ")
+    print(colored(f"Majors: {len(majors)}", 'red'), end=", ")
+    print(colored(f"Minors: {len(minors)}", 'yellow'), end=", ")
+    print(colored(f"INFO: {len(infos)}", 'cyan'))
+
+
+def print_cs_errors(errors: tuple[list, list, list]):
+    majors, minors, infos = errors
+    for file_name, line, rule in majors:
+        print(colored(f"MAJOR: {file_name} at line:{line} {rule}", 'red'))
+    for file_name, line, rule in minors:
+        print(colored(f"MINOR: {file_name} at line:{line} {rule}", 'yellow'))
+    for file_name, line, rule in infos:
+        print(colored(f"INFO: {file_name} at line:{line} {rule}", 'cyan'))
+    print()
+
+
+def call_coding_style():
+    process = subprocess.Popen(
+        "coding-style . .", stdout=subprocess.DEVNULL, shell=True)
+    process.communicate()
+
+
+def ignore_file(lines: list[str]) -> list[str]:
+    ignore_file = read_file(".gitignore")
+    for line in ignore_file:
+        if line.startswith("#"):
+            ignore_file.remove(line)
+        line = line.strip()
+    for line in lines:
+        for ignored in ignore_file:
+            ignored = ignored.strip().removesuffix("\n")
+            file_name = line.split(':')[0].strip(
+            ).removeprefix("./")
+            if file_name.endswith(ignored):
+                lines.remove(line)
+    return lines
+
+
+def help(options):
+    print("Usage: coding-style-repo [OPTIONS]")
+    print("OPTIONS:")
+    for opt in options:
+        option, desc = opt
+        print(f"\t{option}\t\t{desc}")
+    exit(0)
+
+
+def main():
+    if "--help" in sys.argv[1:]:
+        help(OPTIONS)
+        exit(0)
+
+    flags = [flag for flag, _ in OPTIONS if flag.startswith("--")]
+    if len(sys.argv) > 1 and sys.argv[1] not in flags:
+        print(f"Unknown option {sys.argv[1]}")
+        exit(1)
+
+    call_coding_style()
+    lines = read_file("coding-style-reports.log")
+
+    if len(sys.argv) > 1 and "--ignore" in sys.argv[1:]:
+        lines = ignore_file(lines)
+    if len(sys.argv) > 1 and "--clean" in sys.argv[1:]:
+        os.remove("coding-style-reports.log")
+    if len(lines) == 0:
+        print(colored("No coding-style error found. Happy coding !", 'green'))
+        exit(0)
+
+    errors = compute_error(lines)
+
+    print_cs_errors(errors)
+    print_nb_cs_errors(errors)
+    exit(1)
+
+
+if __name__ == "__main__":
+    main()
