@@ -23,7 +23,7 @@ And for remove :
 ## Usage/Examples
 
 ```bash
-coding-style-repo --help    # display this help and exit
+coding-style-repo --help    # display usage
 coding-style-repo --ignore  # ignore all file in .gitignore
 coding-style-repo --clean   # remove coding-style-report.log
 ```
