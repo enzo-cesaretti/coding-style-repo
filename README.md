@@ -1,4 +1,4 @@
-# FILEPATH: coding-style-repo/coding-style-repo
+#coding-style-repo
 
 """
 README
