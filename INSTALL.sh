@@ -2,7 +2,7 @@
 
 PIP=$(which pip)
 CHMOD=$(which chmod)
-MV=$(which mv)
+CP=$(which cp)
 RM=$(which rm)
 
 #color
@@ -26,7 +26,7 @@ fi
 
 # move to bin
 echo -e "${GREEN}Moving to bin...${RESET}"
-eval "sudo $MV coding-style-repo /usr/local/bin/"
+eval "sudo $CP coding-style-repo /usr/local/bin/"
 
 echo -e "${GREEN}Removing files...${RESET}"
 eval "sudo $RM -r ../coding-style-repo"
