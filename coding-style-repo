@@ -10,6 +10,37 @@ OPTIONS = [
     ("--help", "Display this help")
 ]
 
+RULES = {
+    "C-G1": "Bad file header",
+    "C-G2": "There should be only one line between each fonction",
+    "C-G3": "Preprocessor directive must be indented",
+    "C-G4": "Global Variable must be const",
+    "C-G5": "#include should only contain .h files",
+    "C-G6": "Line endings must be done in UNIX style",
+    "C-G7": "Line should finish only end with a \"\\n\"",
+    "C-G8": "Trailing space",
+    "C-G9": "Constant values",
+    "C-C1": "There should not be more than 3 depth (conditionnal branching)",
+    "C-C3": "Forbidden goto",
+    "C-A3": "Missing Line Break",
+    "C-L1": "Coding content",
+    "C-L2": "Bad indentation",
+    "C-L3": "Misplaced spaces",
+    "C-L4": "Misplaced curly bracket",
+    "C-L5": "Bad variable declaration",
+    "C-L6": "Bad line break",
+    "C-O1": "Check useless file",
+    "C-O3": "Too many fonctions in a file",
+    "C-O4": "Snake case convention",
+    "C-F3": "A line lenght shoud not exceed 80 columns",
+    "C-F4": "A function should not exceed 20 lines",
+    "C-F5": "More than 4 arguments in a function or argumentless function",
+    "C-F6": "Comments inside of functions",
+    "H2": "Header not protected from doucle inclusion",
+    "V1": "Controlling structures and macros",
+    "V3": "Pointers position",
+}
+
 
 def read_file(path: str):
     f = open(path, "r")
@@ -57,11 +88,26 @@ def print_nb_cs_errors(errors: tuple[list, list, list]):
 def print_cs_errors(errors: tuple[list, list, list]):
     majors, minors, infos = errors
     for file_name, line, rule in majors:
-        print(colored(f"MAJOR: {file_name} at line:{line} {rule}", 'red'))
+        print(
+            colored(
+                f"MAJOR: {file_name} at line:{line} {rule}: {RULES[rule]}",
+                'red'
+            )
+        )
     for file_name, line, rule in minors:
-        print(colored(f"MINOR: {file_name} at line:{line} {rule}", 'yellow'))
+        print(
+            colored(
+                f"MINOR: {file_name} at line:{line} {rule}: {RULES[rule]}",
+                'yellow'
+            )
+        )
     for file_name, line, rule in infos:
-        print(colored(f"INFO: {file_name} at line:{line} {rule}", 'cyan'))
+        print(
+            colored(
+                f"INFO: {file_name} at line:{line} {rule}: {RULES[rule]}",
+                'cyan'
+            )
+        )
     print()
 
 
