@@ -1,26 +1,41 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+# coding-style-repo
 
-<h3 align="center">coding-style-repo</h3>
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 This script is display the content of coding-style-report.log file in a more readable way.
-The app is built using Python and can be run on any machine with Python installed. Seen other dependencies below.
 
-Usage:
-    coding-style-repo
-    coding-style-repo --help    # display this help and exit
-    coding-style-repo --ignore  # ignore the file in .gitignore
-    coding-style-repo --clean   # remove the file coding-style-report.log after display it
+The script is built using Python and can be run on any machine with Python installed. Seen other dependencies below.
 
-Dependencies:
+## Installation/Remove
 
-- docker
-- pip
-- coding-style: Epitech's coding style norminette (sorry, student at Epitech)
+For install, run :
 
-Author:
+```bash
+./INSTALL.sh
+```
 
-- Enzo Cesaretti: <enzo.cesaretti@epitech.eu>
+And for remove :
 
-License:
+```bash
+./REMOVE.sh
+```
 
-- This project is licensed under the MIT License - see the LICENSE file for details
+## Usage/Examples
+
+```bash
+coding-style-repo --help    # display this help and exit
+coding-style-repo --ignore  # ignore all file in .gitignore
+coding-style-repo --clean   # remove coding-style-report.log
+```
+
+## Contributing
+
+Contributions are always welcome!
+
+## Authors
+
+- [@enzo-cesaretti](https://www.github.com/enzo-cesaretti)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
