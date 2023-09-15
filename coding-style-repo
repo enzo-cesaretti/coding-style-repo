@@ -9,7 +9,8 @@ import sys
 OPTIONS = [
     ("--ignore", "Ignore the all file in .gitignore"),
     ("--clean", "Clean the coding-style-reports.log file"),
-    ("--help", "Display this help")
+    ("--help", "Display this help"),
+    ("--short", "Sorten the output"),
 ]
 
 RULES = {
@@ -155,11 +156,11 @@ def help(options):
 @app.callback()
 def main(
     clean: bool = typer.Option(
-        False, "--clean", help="Clean coding-style-reports.log"),
-    short: bool = typer.Option(
-        False, "--short", help="Shorten the output"),
+        True, "--clean", help="Clean coding-style-reports.log"),
     ignore: bool = typer.Option(
-        False, "--ignore", help="Ignore file in .gitignore"),
+        True, "--ignore", help="Ignore file in .gitignore"),
+    short: bool = typer.Option(
+        True, "--short", help="Shorten the output"),
 ):
     flags = [flag for flag, _ in OPTIONS if flag.startswith("--")]
     if len(sys.argv) > 1 and sys.argv[1] not in flags:
@@ -180,9 +181,8 @@ def main(
 
     errors = compute_error(lines)
 
-    if not short:
+    if short:
         print_cs_errors(errors)
-
     print_nb_cs_errors(errors)
     exit(1)
 
