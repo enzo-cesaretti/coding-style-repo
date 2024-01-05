@@ -26,7 +26,7 @@ fi
 
 # move to bin
 echo -e "${GREEN}Moving to bin...${RESET}"
-eval "sudo $CP coding-style-repo /usr/local/bin/"
+eval "sudo $CP coding-style-repo /usr/bin/"
 
 echo -e "${GREEN}Removing files...${RESET}"
 eval "sudo $RM -r ../coding-style-repo"
