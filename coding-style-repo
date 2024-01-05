@@ -13,7 +13,7 @@ OPTIONS = [
     ("--short", "Sorten the output"),
 ]
 
-RULES = {
+RULES_C = {
     "C-G1": "Bad file header",
     "C-G2": "There should be only one line between each fonction",
     "C-G3": "Preprocessor directive must be indented",
@@ -43,6 +43,28 @@ RULES = {
     "V1": "Controlling structures and macros",
     "V3": "Pointers position",
 }
+
+RULES_HASKELL = {
+    "H-O1": "Your delivery folder should contain only files required for compilation.",
+    "H-O2": "Sources in a Haskell program should only have extension `.hs`",
+    "H-O3": "A Haskell project must be organized in modules",
+    "H-O4": "The name of a file should match the name of its module",
+    "H-O5": "All modules should explicitly declare their exported definitions",
+    "H-G1": "Every Haskell file should start with a standard Epitech header",
+    "H-T1": "All top level bindings must have an accompanying type signature",
+    "H-M1": "Mutable variables are strictly forbidden",
+    "H-M2": "Functions performing unsafe operations are strictly forbidden",
+    "H-F1": "A function should only do one thing",
+    "H-F2": "The name of a function should define the task it executes and should contain a verb",
+    "H-F3": "A Line must be less than 80 characters long",
+    "H-F4": "A Function body must be 10 lines or less",
+    "H-V1": "All identifier names should be in English, according to the lowerCamelCase convention",
+    "H-C4": "Nested If statements are strictly forbidden",
+    "H-C5": "Guards and if statements which can be expressed as pattern matchings must be expressed as such",
+    "H-D1": "The Do notation is forbidden unless it contains a generator (a statement with a left arrow)"
+}
+
+RULES = {**RULES_C, **RULES_HASKELL}
 
 app = typer.Typer()
 
