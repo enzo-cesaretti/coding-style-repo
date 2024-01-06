@@ -57,14 +57,14 @@ RULES_HASKELL = {
     "H-F1": "A function should only do one thing",
     "H-F2": "The name of a function should define the task it executes and should contain a verb",
     "H-F3": "A Line must be less than 80 characters long",
-    "H-F4": "A Function body must be 10 lines or less",
+    "H-F4": "too long function",
     "H-V1": "All identifier names should be in English, according to the lowerCamelCase convention",
     "H-C4": "Nested If statements are strictly forbidden",
     "H-C5": "Guards and if statements which can be expressed as pattern matchings must be expressed as such",
     "H-D1": "The Do notation is forbidden unless it contains a generator (a statement with a left arrow)"
 }
 
-RULES = {**RULES_C, **RULES_HASKELL}
+RULES = RULES_C | RULES_HASKELL
 
 app = typer.Typer()
 
@@ -91,6 +91,7 @@ def compute_error(lines: list[str]) -> tuple[list, list, list]:
         for i in range(len(parsed)):
             parsed[i] = parsed[i].strip()
         file, line, level, rule = parsed
+        rule = rule.split("#")[0].strip()
         file_name = file.split("/")[-1].strip()
         match level:
             case "MAJOR":
