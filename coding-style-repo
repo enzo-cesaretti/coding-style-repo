@@ -39,6 +39,7 @@ RULES_C = {
     "C-F4": "A function should not exceed 20 lines",
     "C-F5": "More than 4 arguments in a function or argumentless function",
     "C-F6": "Comments inside of functions",
+    "C-V3": "Pointer: The asterisk (*) must be attached to the associated variable",
     "H2": "Header not protected from doucle inclusion",
     "V1": "Controlling structures and macros",
     "V3": "Pointers position",
